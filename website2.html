@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retirement Savings Calculator</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%; /* Ensures body takes full width of the viewport */
+    height: 100%;
+    box-sizing: border-box; /* Padding and border included in the element's total width and height */
+    font-family: Helvetica;
+  }
+  .navbar {
+    background-color: #92cf4f;
+    padding: 10px 20px;
+    color: white;
+    text-align: left;
+  }
+  .navbar a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 24px;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin: 0;
+    width: 100%; /* Container to use full width */
+  }
+  .left-column {
+    flex: 2; /* Two-thirds of the container */
+    background-color: #f0f0f0;
+    padding: 20px;
+    font-size: 24px;
+  }
+  .right-column {
+    flex: 1; /* One-third of the container */
+    background-color: #92cf4f;
+    padding: 20px;
+    color: white;
+    font-size: 24px;
+  }
+  .disclaimer{
+    background-color: #92cf4f;
+    font-size: 16px;
+    padding: 10px
+  }
+  label, input, button {
+    display: block;
+    margin-top: 10px;
+  }
+  input, button {
+    width: 60%; /* Smaller input and button width */
+    padding: 10px;
+    font-size: 24px;
+  }
+  button {
+    background-color: #92cf4f;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #7CB342;
+  }
+</style>
+</head>
+<body>
+<div class="navbar">
+  <a href="#">Home</a>
+  <a href="rsb_information.html">More about RSB</a>
+</div>
+
+<div class="container">
+  <div class="left-column">
+    <h1>Plan Your Retirement</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pharetra velit a posuere malesuada. Fusce sit amet velit nulla. Donec vel felis vel magna porta porta in molestie nisl. Duis non ex sed metus semper gravida sit amet quis sem. Sed auctor lectus vitae nisl rhoncus lobortis. Maecenas arcu nisi, maximus sed varius nec, consectetur in nunc. Pellentesque aliquam nibh sit amet metus luctus, nec feugiat orci finibus. Donec vitae tortor ornare, venenatis odio quis, eleifend mi. Etiam vitae ornare diam. Aenean vel ex eget tortor malesuada laoreet et eget sapien. Maecenas aliquet laoreet enim, sit amet varius nulla accumsan sed. Phasellus lorem odio, posuere sed pulvinar non, mollis lacinia diam.
+
+Cras eleifend ex velit, sed rhoncus mi pulvinar vitae. Cras at pharetra sem. Aliquam efficitur lectus posuere dui mattis consequat. Fusce fringilla sed libero sed efficitur. Nam ut maximus lectus. Nunc cursus velit vel mi tempor ultrices. Cras in efficitur ligula.
+
+Praesent et orci ex. </p>
+
+    <label for="currentAge">My current age is:</label>
+    <input type="number" id="currentAge">
+
+    <label for="retireAge">I want to retire at age:</label>
+    <input type="number" id="retireAge">
+
+    <label for="desiredIncome">My desired yearly income is:</label>
+    <input type="number" id="desiredIncome">
+
+    <label for="investableAmount">Amount investable today:</label>
+    <input type="number" id="investableAmount">
+
+    <button onclick="calculatePlan()">Calculate savings plan</button>
+  </div>
+
+  <div class="right-column">
+    <h2>Your Retirement Savings Plan</h2>
+    <label for="totalRSB">Number of total RSB needed</label>
+    <input type="text" id="totalRSB" readonly>
+
+    <label for="attainableRSB">Number of RSB attainable now</label>
+    <input type="text" id="attainableRSB" readonly>
+
+    <label for="rsbPerYear">Number of RSB per Year</label>
+    <input type="text" id="rsbPerYear" readonly>
+
+    <label for="costRSB">Cost of XX RSB today</label>
+    <input type="text" id="costRSB" readonly>
+  </div>
+
+
+
+</div>
+
+<div class="disclaimer">
+<p>  Disclaimer: Prototype website currently under development, information provided here is current research progress</p>
+</div>
+
+
+<script>
+  function calculatePlan() {
+    // Placeholder for the calculation logic
+    alert('Calculation would go here.');
+  }
+</script>
+</body>
+</html>
