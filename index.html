@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Retirement Savings Calculator</title>
+<link rel="icon" type="image/x-icon" href="rsb.ico">
+<title>RSB</title>
 <style>
   body, html {
     margin: 0;
@@ -72,18 +73,14 @@
 </head>
 <body>
 <div class="navbar">
-  <a href=index.html>Home</a>
+  <a href="index.html">Home</a>
   <a href="rsb_information.html">More about RSB</a>
 </div>
 
 <div class="container">
   <div class="left-column">
-    <h1>Plan Your Retirement</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pharetra velit a posuere malesuada. Fusce sit amet velit nulla. Donec vel felis vel magna porta porta in molestie nisl. Duis non ex sed metus semper gravida sit amet quis sem. Sed auctor lectus vitae nisl rhoncus lobortis. Maecenas arcu nisi, maximus sed varius nec, consectetur in nunc. Pellentesque aliquam nibh sit amet metus luctus, nec feugiat orci finibus. Donec vitae tortor ornare, venenatis odio quis, eleifend mi. Etiam vitae ornare diam. Aenean vel ex eget tortor malesuada laoreet et eget sapien. Maecenas aliquet laoreet enim, sit amet varius nulla accumsan sed. Phasellus lorem odio, posuere sed pulvinar non, mollis lacinia diam.
-
-Cras eleifend ex velit, sed rhoncus mi pulvinar vitae. Cras at pharetra sem. Aliquam efficitur lectus posuere dui mattis consequat. Fusce fringilla sed libero sed efficitur. Nam ut maximus lectus. Nunc cursus velit vel mi tempor ultrices. Cras in efficitur ligula.
-
-Praesent et orci ex. </p>
+    <h1>Plan Your Retirement using RSB</h1>
+    <p>With Retirement Security Bonds (RSB), individuals can save up for their retirement using bonds that start paying out at the beginning of the retirement. In the interface below, you can see a possible retirement plan using RSBs for your inputs. </p>
 
     <label for="currentAge">My current age is:</label>
     <input type="number" id="currentAge">
@@ -125,10 +122,62 @@ Praesent et orci ex. </p>
 
 
 <script>
-  function calculatePlan() {
-    // Placeholder for the calculation logic
-    alert('Calculation would go here.');
+
+const dataframe = [
+  { FirstPayment: 2028, ARMA_Price: 21.34333996},
+  { FirstPayment: 2033, ARMA_Price: 20.27339953},
+  { FirstPayment: 2038, ARMA_Price: 19.46591423},
+  { FirstPayment: 2043, ARMA_Price: 18.83955394},
+  { FirstPayment: 2048, ARMA_Price: 18.10292755}
+];
+
+function calculatePlan() {
+  var ageNow = parseInt(document.getElementById('currentAge').value, 10);
+  var ageRetirement = parseInt(document.getElementById('retireAge').value, 10);
+  var monthlyIncome = parseFloat(document.getElementById('desiredIncome').value);
+  var fundsAvailable = parseFloat(document.getElementById('investableAmount').value);
+  const cf_t = 1;
+
+  if (isNaN(ageNow) || isNaN(ageRetirement) || isNaN(monthlyIncome) || isNaN(fundsAvailable)) {
+    alert("Please enter valid numbers in all fields.");
+    return;
   }
+
+
+  if (ageNow > ageRetirement) {
+    alert("Retirement age must be greater than current age.");
+    return;
+  }
+
+  if (ageNow<0 || ageRetirement<0 || monthlyIncome<0 || fundsAvailable<0) {
+    alert("Please enter non-negative values only.");
+    return;
+  }
+
+  var helper_df_maturity = dataframe.filter(item => item.FirstPayment >= (2023 + ageRetirement - ageNow));
+  var maturity_recommended = 0
+
+  if ((2023 + ageRetirement - ageNow) > 2043){
+    maturity_recommended = 2048;
+  } else {
+    maturity_recommended = Math.min(...helper_df_maturity.map(item => item.FirstPayment));
+  }
+
+  const price = dataframe.find(item => item.FirstPayment === maturity_recommended).ARMA_Price;
+
+  const no_rsb = monthlyIncome / cf_t;
+  const rsb_buy_now = fundsAvailable / price;
+  const yearsToInvest = ageRetirement - ageNow;
+  const titles_per_month = (no_rsb - rsb_buy_now) / (12*yearsToInvest);
+  const cost_per_month = titles_per_month * price;
+
+  document.getElementById('totalRSB').value = no_rsb.toFixed(2);
+  document.getElementById('attainableRSB').value = rsb_buy_now.toFixed(2);
+  document.getElementById('rsbPerYear').value = (titles_per_month).toFixed(2);
+  document.getElementById('costRSB').value = cost_per_month.toFixed(2);
+  //document.getElementById('costRSB').value = maturity_recommended.toFixed(2); TO BE DELETED
+}
+
 </script>
 </body>
 </html>
